@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Width Sweep Demo - 中間幅で崩れるレイアウト</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f6f7f9;
+    color: #1a1a1a;
+  }
+  header {
+    background: #1f2937;
+    color: white;
+    padding: 16px 24px;
+  }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; font-size: 13px; color: #9ca3af; }
+
+  .layout {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    align-items: flex-start;
+  }
+  .sidebar {
+    flex: 0 0 260px;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .sidebar h2 { font-size: 14px; margin: 0 0 8px; }
+  .sidebar ul { margin: 0; padding-left: 18px; font-size: 13px; color: #4b5563; }
+
+  .main {
+    flex: 1 1 auto;
+    min-width: 300px;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .main h2 { font-size: 14px; margin: 0 0 8px; }
+  .main p { font-size: 13px; color: #4b5563; line-height: 1.7; }
+
+  /* 「768px 以上ならタブレット以上の余白がある」という前提で追加した
+     セカンダリパネル。実際には 800px〜935px の帯域では
+     サイドバー260px + パネル280px + gap48px + padding48px = 636px を差し引いた
+     残りが .main の min-width(300px) を割り込み、横スクロールが発生する。
+     936px 以上になると自然に収まるため、1280px の標準チェックポイントでは
+     問題が再現しない。 */
+  .insights {
+    display: none;
+    flex: 0 0 280px;
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .insights h2 { font-size: 14px; margin: 0 0 8px; }
+  .insights p { font-size: 13px; color: #4b5563; }
+
+  @media (min-width: 800px) {
+    .insights { display: block; }
+  }
+
+  @media (max-width: 767px) {
+    .layout { flex-direction: column; }
+    .main { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Width Sweep Demo</h1>
+    <p>375 / 768 / 1280px の3点は問題なし。しかし 800px〜935px 付近だけ横スクロールが発生します</p>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>サイドバー(固定260px)</h2>
+      <ul>
+        <li>ダッシュボード</li>
+        <li>レポート</li>
+        <li>設定</li>
+      </ul>
+    </aside>
+    <main class="main">
+      <h2>本文(min-width: 300px)</h2>
+      <p>
+        768px ちょうどでは、まだ「インサイトパネル」が表示されないため問題なく収まります。
+        1280px では画面全体に余裕があるため、こちらも問題ありません。
+        しかし 800px からインサイトパネル(固定280px)が新たに表示されるようになっており、
+        サイドバーとパネルの合計固定幅がこの帯域の余白を食いつぶし、
+        本文の最小幅(300px)を確保できなくなります。935px 付近まで幅を広げると、
+        自然に収まるようになります。
+      </p>
+    </main>
+    <aside class="insights">
+      <h2>インサイトパネル(固定280px, 800px以上で表示)</h2>
+      <p>タブレット以上なら十分な余白があるはず、という前提で追加した要素。</p>
+    </aside>
+  </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "targetUrl": "http://localhost:4173/",
+  "range": {
+    "min": 320,
+    "max": 1440,
+    "coarseStep": 40
+  },
+  "boundaries": [
+    {
+      "type": "崩れ開始",
+      "from": 760,
+      "to": 800,
+      "boundaryWidth": 800,
+      "overflowingSelector": "aside.insights"
+    },
+    {
+      "type": "崩れ解消",
+      "from": 880,
+      "to": 920,
+      "boundaryWidth": 912,
+      "overflowingSelector": "aside.insights"
+    }
+  ],
+  "sampleCount": 29
+}
