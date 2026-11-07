@@ -60,6 +60,10 @@ npm run sweep                      # 320px〜1440px を 40px 刻みで掃引し�
 - 試したのは、このリポジトリのサンプルページだけ。実際のサイトでの誤検知(横スクロール前提のカルーセルなど)は確かめていない
 - `package-lock.json` を置いていないので、`npm install` で入る Playwright の版は実行した時期で変わる(この README の出力は Playwright 1.65.0 で確認)
 
+## 記事
+
+https://zenn.dev/liatris/articles/20261008-responsive-width-sweep
+
 ## ライセンス
 
 MIT
